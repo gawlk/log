@@ -1,8 +1,6 @@
 # logs
 
-<p align="center">
-  <img alt="preview" src="logs.png">
-</p>
+![preview](logs.png)
 
 ## Description
 
