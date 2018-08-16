@@ -1,6 +1,6 @@
 # logs
 
-![preview](logs.png)
+![preview](log.png)
 
 ## Description
 
