@@ -11,7 +11,7 @@
 # Contributors:             none
 
 # ---
-# VARIABLES
+# SETUP
 # ---
 
 # Background
@@ -36,9 +36,10 @@ log.print() {
     local bgrd="$3"
     local title="$4"
     local description="${@:5}"
-    [[ -z "$title" ]] && title="test"
-    [[ -z "$description" ]] && description="Test"
-    printf "${fgry}[ ${bgrd}${fgrd}${kind}${bblk} ${fgry}]  ${fred}${title}${fgry}: ${fwht}${description}\n"
+    [[ -z "$title" && -z "$description" ]] && title="test" && description="Test"
+    
+    printf "${fgry}[ ${bgrd}${fgrd}${kind}${bblk} ${fgry}]  "
+    [[ -z "$description ]] && printf "${fwht}${title}\n" || printf "${fred}${title}${fgry}: ${fwht}${description}\n"
 }
 
 # ---
