@@ -39,7 +39,7 @@ log.print() {
     [[ -z "$title" && -z "$description" ]] && title="test" && description="Test"
     
     printf "${fgry}[ ${bgrd}${fgrd}${kind}${bblk} ${fgry}]  "
-    [[ -z "$description ]] && printf "${fwht}${title}\n" || printf "${fred}${title}${fgry}: ${fwht}${description}\n"
+    [[ -z "$description" ]] && printf "${fwht}${title}\n" || printf "${fred}${title}${fgry}: ${fwht}${description}\n"
 }
 
 # ---
