@@ -1,0 +1,119 @@
+#!/usr/bin/env bash
+#
+#    _|x  ||''. '||'  |\  |
+#   |X|   ||--'  ||   ||\ |
+#  /      ||    .||.  || \|
+#
+# Description:              A minimal bash logging library
+# Dependencies:             none
+# Optionnal dependencies:   none
+# Author:                   gawlk
+# Contributors:             none
+
+# ---
+# SETUP
+# ---
+
+# Background
+bblk="\\e[0m"
+bred="\\e[41m"
+bgrn="\\e[42m"
+bylw="\\e[43m"
+bblu="\\e[44m"
+bbbb="\\e[45m"
+
+# Foreground
+fblk="\\e[30m"
+fgry="\\e[90m"
+fred="\\e[31m"
+fgrn="\\e[32m"
+fylw="\\e[33m"
+fblu="\\e[34m"
+fbbb="\\e[35m"
+frst="\\e[0m"
+
+pin_log=true
+pin_dev=true
+
+# ---
+# LOCAL
+# ---
+
+pin.print() {
+    local kind="$1"
+    local fgrd="$2"
+    local title="$3"
+    local fgrd2="$4"
+    local description="${@:5}"
+
+    [[ -z "$title" && -z "$description" ]] && title="title" && description="description"
+
+    printf "${fgry}[ ${bblk}${fgrd}${kind}${bblk} ${fgry}]  "
+    [[ -z "$description" ]] && printf "${frst}${title}\n" || printf "${fgrd2}${title}${fgry}: ${frst}${description}\n"
+}
+
+# ---
+# GLOBAL
+# ---
+
+# Logs
+
+pin.info() {
+    if [[ $pin_log == true ]]
+    then
+        pin.print "  info " "$fblu" "$1" "$fblu" "${@:2}"
+    fi
+}
+
+pin.debug() {
+    if [[ $pin_dev == true ]]
+    then
+        pin.print " debug " "$fgrn" "$1" "$fgrn" "${@:2}"
+    fi
+}
+
+pin.warning() {
+    pin.print "warning" "$fylw" "$1" "$fylw" "${@:2}"
+}
+
+pin.error() {
+    pin.print " error " "$fred" "$1" "$fred" "${@:2}"
+    exit 1
+}
+
+pin.quit() {
+    pin.print "  quit " "$fbbb" "$1" "$fbbb" "${@:2}"
+    exit 0
+}
+
+# Setters
+pin.quiet()   { pin_log=true; }
+pin.loud()    { pin_log=false; }
+pin.dev()     { pin_dev=true; }
+pin.casual()  { pin_dev=false; }
+
+# ---
+# MAIN
+# ---
+
+pin.main() {
+    case "$1" in
+        "i" | "info"    ) pin.info "${@:2}" ;;
+        "d" | "debug"   ) pin.debug "${@:2}" ;;
+        "w" | "warning" ) pin.warning "${@:2}" ;;
+
+        "e" | "error"   ) pin.error "${@:2}" ;;
+        "q" | "quit"    ) pin.quit "${@:2}" ;;
+
+        "log" ) [[ "$2" == "on" ]] && pin.loud || ( [[ "$2" == "off" ]] && pin.quiet ) ;;
+        "dev" ) [[ "$2" == "on" ]] && pin.dev || ( [[ "$2" == "off" ]] && pin.casual ) ;;
+
+        * ) printf '%s\n' "$@" ;;
+    esac
+}
+
+# ---
+# LAUNCH
+# ---
+
+pin.main $@

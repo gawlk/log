@@ -1,39 +1,34 @@
-# log
+# :pushpin: pin
 
-![preview](log.png)
+## Preview
+
+![preview](preview.png)
 
 ## Description
 
-`log` is a very simple library that I made because I realized that I always needed something like logs to keep track of what is going on in my scripts.
+`pin` is a very simple library that makes logging in your bash scripts much easier !
 
-Bonus: It has colors !
+## How to use
 
-## How to use ? 
-
-It's very easy:
-1. Download and put the script in your path
-2. Add `. log` at the top of your scripts
-3. That's it, you can now use the available functions !
+```bash
+git clone https://github.com/gawlk/pin.git
+cd pin
+bash install.sh
+```
 
 ## Manual
 
-Example: `log.info "test" "test"`
+Example: `pin i test` or `pin info "title" "description"`
 
-Available getters:
-- `log.is_quiet`: Return `true` if `log.info` is hidden
-- `log.is_loud`: Return `true` if `log.info` is not hidden
-- `log.is_dev`: Return `true` if `log.dev` is hidden
-- `log.is_casual`: Return `true` if `log.dev` is not hidden
+Logs:
+- `pin info "title" "description"` : Display an info pin
+- `pin debug "title" "description"`: Display a debug pin (default: hidden)
+- `pin warning "title" "description"`: Display a warning pin
+- `pin error "title" "description"`: Display an error pin and quit
+- `pin quit "title" "description"`: Display an info pin and quit
 
-Available printers:
-- `log.info` : Display an information
-- `log.debug`: Used for debugging (default: hidden)
-- `log.warning`: Used for warnings
-- `log.error`: Display an error and quit
-- `log.quit`: Display an information and quit
-
-Available setters:
-- `log.quiet`: Hide `log.info`
-- `log.loud`: Show `log.info`
-- `log.dev`: Show `log.debug`
-- `log.casual`: Hide `log.debug`
+Setters:
+- `pin log on`: Show info pins
+- `pin log off`: Hide info pins
+- `pin dev on`: Show debug pins
+- `pin dev off`: Hide debug pins
